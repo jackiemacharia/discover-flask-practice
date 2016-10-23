@@ -31,7 +31,12 @@ def login_required(f):
 def home():
     g.db = connect_db()  # g is an object specific to flask used to store a temporary object using a request #resets after each request
     cur = g.db.execute('select * from posts')  # query the database # fetches the data from posts
-    posts = [dict(title=row[0], description=row[1]) for row in cur.fetchall()]  # cast to a dictionary
+    posts = []
+    for row in cur.fetchall():
+        posts.append(dict(title=row[0], description=row[1]))
+
+    # posts = [dict(title=row[0], description=row[1]) for row in cur.fetchall()]  # cast to a dictionary
+
     g.db.close()  # close the database
     return render_template('index.html', posts=posts)  # render a template
 
