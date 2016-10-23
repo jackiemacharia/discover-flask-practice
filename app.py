@@ -1,12 +1,17 @@
+# import the Flask class from the flask module
+# import wraps from functools
 from flask import Flask, render_template, redirect, url_for, request, session, flash
-from functools import wraps
+from functools import wraps  # wraps allows you to define and use decorators such as login_required
 
 
+# create the application object
 app = Flask(__name__)
 
+#use a random key generator
 app.secret_key = "my precious"
 
 
+# login_required decorator
 def login_required(f):
     @wraps(f)
     def wrap(*args, **kwargs):
@@ -18,15 +23,16 @@ def login_required(f):
     return wrap
 
 
+# use decorators to link the function to a url
 @app.route('/')
 @login_required
 def home():
-    return render_template('index.html')
+    return render_template('index.html')  # render a template
 
 
 @app.route('/welcome')
 def welcome():
-    return render_template('welcome.html')
+    return render_template('welcome.html')  # render a template
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -50,5 +56,6 @@ def logout():
     return redirect(url_for('welcome'))
 
 
+# start the server with the 'run()' method
 if __name__ == '__main__':
     app.run(debug=True)
