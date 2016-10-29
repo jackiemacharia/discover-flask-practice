@@ -1,4 +1,8 @@
+import os
+
 # default config
+
+
 class BaseConfig(object):
     DEBUG = False
     SECRET_KEY = 'Hb\x8b\xbbn\xf2\x9d\xe1Q\xc2\xe1,h;\x8c\xbb\xdb\xed\xe6\xc4\xd1W \x86'  # use a random key generator command: import os. os.urandom(n)  # not advisable on a public repo
@@ -18,3 +22,4 @@ class DevelopmentConfig(BaseConfig):
 
 class ProductionConfig(BaseConfig):
     DEBUG = False  # makes sure that production environment is not debug mode to avoid exposing our server to public
+#  heroku config:set APP_SETTINGS=config.ProductionConfig --remote heroku sets heroku as production remote
