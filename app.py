@@ -12,7 +12,8 @@ app = Flask(__name__)
 # config
 import os
 app.config.from_object(os.environ['APP_SETTINGS'])  # to add development environment to local environment use this command:  export APP_SETTINGS="config.DevelopmentConfig"
-# creat the sqlalchemy object
+
+# create the sqlalchemy object
 db = SQLAlchemy(app)
 
 # come after the sqlalchemy object
