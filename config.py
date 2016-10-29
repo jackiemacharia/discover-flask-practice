@@ -1,7 +1,7 @@
 # default config
 class BaseConfig(object):
     DEBUG = False
-    SECRET_KEY = "my precious"  # use a random key generator
+    SECRET_KEY = 'Hb\x8b\xbbn\xf2\x9d\xe1Q\xc2\xe1,h;\x8c\xbb\xdb\xed\xe6\xc4\xd1W \x86'  # use a random key generator command: import os. os.urandom(n)  # not advisable on a public repo
     SQLALCHEMY_DATABASE_URI = os.environ['DATABASE_URL']  # sets up environment variable for db command: export DATABASE_URL="sqlite:///posts.db"
     # app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 
