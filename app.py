@@ -9,10 +9,9 @@ from functools import wraps  # wraps allows you to define and use decorators suc
 # create the application object
 app = Flask(__name__)
 
-# use a random key generator
-app.secret_key = "my precious"
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///posts.db'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
+# config
+import os
+app.config.from_object(os.environ['APP_SETTINGS'])  # to add development environment to local environment use this command:  export APP_SETTINGS="config.DevelopmentConfig"
 
 # creat the sqlalchemy object
 db = SQLAlchemy(app)
@@ -67,9 +66,9 @@ def logout():
     return redirect(url_for('welcome'))
 
 
-# def connect_db():
+# def connect_db():  # Not necessary with SQLAlchemy
 # return sqlite3.connect(app.database)  # create database object
 
 # start the server with the 'run()' method
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()
