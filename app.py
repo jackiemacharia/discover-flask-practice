@@ -12,7 +12,6 @@ app = Flask(__name__)
 # config
 import os
 app.config.from_object(os.environ['APP_SETTINGS'])  # to add development environment to local environment use this command:  export APP_SETTINGS="config.DevelopmentConfig"
-print os.environ['APP_SETTINGS']
 # creat the sqlalchemy object
 db = SQLAlchemy(app)
 
@@ -65,9 +64,6 @@ def logout():
     flash('You were just logged out!')
     return redirect(url_for('welcome'))
 
-
-# def connect_db():  # Not necessary with SQLAlchemy
-# return sqlite3.connect(app.database)  # create database object
 
 # start the server with the 'run()' method
 if __name__ == '__main__':
