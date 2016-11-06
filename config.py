@@ -33,3 +33,13 @@ class ProductionConfig(BaseConfig):
 # export APP_SETTINGS="config.DevelopmentConfig"
 
 # autoenv sets directory specific environment variables - check it out - alternative to using export all the time
+
+# add environment variables on postactivate script - triggered after activating env with WORKON
+
+# cd $VIRTUAL_ENV/bin - takes you to where the postactivate script is found when virtual env is activated
+
+# to edit postactivate in vim: ~/Documents/code_cave/playground/discover-flask/discover-flask-practice$ vi $VIRTUAL_ENV/bin/postactivate
+
+# then add environment variables: export DATABASE_URL="postgresql:///discover_flask_dev_db" & export APP_SETTINGS="config.DevelopmentConfig"
+
+# solves having to keep exporting environment variables every time the terminal powers up :wq saves and exits vim
