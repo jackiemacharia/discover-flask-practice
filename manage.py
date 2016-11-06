@@ -21,3 +21,13 @@ if __name__ == '__main__':
 # python manage.py db upgrade
 
 # Always include migrations folder in version control to maintan the history of db changes
+
+# Migrate the upgrade Always
+
+# Before any rollbacks/downgrades, backup db always
+
+# python manage.py db downgrade -1  --  takes you back one revision
+
+# use python manage.py db history for specific revision ids
+
+# update directly on migrate scrips or start new script with changes
