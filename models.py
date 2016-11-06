@@ -1,6 +1,7 @@
 from app import db
 from sqlalchemy import ForeignKey
 from sqlalchemy.orm import relationship
+from werkzeug.security import generate_password_hash, check_password_hash
 
 
 class BlogPost(db.Model):
@@ -33,7 +34,7 @@ class User(db.Model):
     def __init__(self, name, email, password):
         self.name = name
         self.email = email
-        self.password = password
+        self.password = generate_password_hash(password)
 
     def __repr__(self):
         return '<name {}'.format(self.name)
