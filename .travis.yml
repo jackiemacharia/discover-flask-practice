@@ -4,7 +4,7 @@ python:
 services:
   - postgresql
 addons:
-  postgresql: "9.6"
+  postgresql: "9.4"
 postgres:
   adapter: postgresql
   database: discover_flask_dev_db
