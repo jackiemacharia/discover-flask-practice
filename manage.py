@@ -19,3 +19,5 @@ if __name__ == '__main__':
 # python manage.py db migrate - creates a migrations scripts
 
 # python manage.py db upgrade
+
+# Always include migrations folder in version control to maintan the history of db changes
