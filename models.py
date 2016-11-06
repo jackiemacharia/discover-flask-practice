@@ -1,7 +1,7 @@
 from app import db
 from sqlalchemy import ForeignKey
 from sqlalchemy.orm import relationship
-from werkzeug.security import generate_password_hash, check_password_hash
+from project.users.views import generate_password_hash, check_password_hash
 
 
 class BlogPost(db.Model):

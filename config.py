@@ -42,4 +42,4 @@ class ProductionConfig(BaseConfig):
 
 # then add environment variables: export DATABASE_URL="postgresql:///discover_flask_dev_db" & export APP_SETTINGS="config.DevelopmentConfig"
 
-# solves having to keep exporting environment variables every time the terminal powers up :wq saves and exits vim
+# solves having to keep exporting environment variables every time the terminal powers up esc then :wq saves and exits vim
