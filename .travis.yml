@@ -4,11 +4,4 @@ python:
 # command to install dependencies
 install: "pip install -r requirements.txt"
 # command to run tests
-notifications:
-  email: false
-env:
-  global:
-    - TRAVIS_BUILD=true
-
-script:
-  "python manage.py test"
+script: "python manage.py test"
