@@ -3,29 +3,20 @@
 #### imports ####
 #################
 
-# import the Flask class from the flask module
 # import wraps from functools
-from flask import Flask, render_template, redirect, url_for, request, session, flash
-from flask_sqlalchemy import SQLAlchemy
+from project import app, db
+from project.models import BlogPost
+from flask import render_template, redirect, url_for, request, session, flash, Blueprint
 from functools import wraps  # wraps allows you to define and use decorators such as login_required
-import os
 
 ################
 #### config ####
 ################
 
-
-# create the application object
-app = Flask(__name__)
-app.config.from_object(os.environ['APP_SETTINGS'])  # to add development environment to local environment use this command:  export APP_SETTINGS="config.DevelopmentConfig"
-# create the sqlalchemy object
-db = SQLAlchemy(app)
-# come after the sqlalchemy object
-from models import *
-from project.users.views import users_blueprint
-
-# register blueprints
-app.register_blueprint(users_blueprint)
+home_blueprint = Blueprint(
+    'home', __name__,
+    template_folder='templates'
+)
 
 ##########################
 #### helper functions ####
@@ -50,21 +41,13 @@ def login_required(f):
 
 
 # use decorators to link the function to a url
-@app.route('/')
+@home_blueprint.route('/')
 @login_required
 def home():
     posts = db.session.query(BlogPost).all()
     return render_template('index.html', posts=posts)  # render a template
 
 
-@app.route('/welcome')
+@home_blueprint.route('/welcome')
 def welcome():
     return render_template('welcome.html')  # render a template
-
-####################
-#### run server ####
-####################
-
-# start the server with the 'run()' method
-if __name__ == '__main__':
-    app.run()

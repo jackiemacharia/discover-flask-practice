@@ -4,7 +4,6 @@
 
 from flask import flash, redirect, render_template, request, \
     session, url_for, Blueprint
-from app import app
 from werkzeug.security import generate_password_hash, check_password_hash
 from functools import wraps
 
