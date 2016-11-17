@@ -11,7 +11,4 @@ env:
     - TRAVIS_BUILD=true
 
 script:
-  coverage run --source=discover-flask-practice manage.py test
-
-after_success:
-  coveralls
+  "python manage.py test"
