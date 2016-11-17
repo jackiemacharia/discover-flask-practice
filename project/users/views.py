@@ -4,8 +4,9 @@
 
 from flask import flash, redirect, render_template, request, url_for, Blueprint
 # from functools import wraps  # wraps allows you to define and use decorators such as login_required
-from form import LoginForm
-from project.models import User, db, bcrypt
+from form import LoginForm, RegisterForm
+from project import db
+from project.models import User, bcrypt
 from flask_login import login_user, login_required, logout_user
 
 ################
@@ -64,3 +65,22 @@ def logout():
     #session.pop('logged_in', None)
     flash('You were just logged out!')
     return redirect(url_for('home.welcome'))
+
+
+@users_blueprint.route('/register', methods=['GET', 'POST'])
+def register():
+    error = None
+    form = RegisterForm()
+    if form.validate_on_submit():
+        user = User(
+            name=form.username.data,
+            email=form.email.data,
+            password=form.password.data
+        )
+        db.session.add(user)
+        db.session.commit()
+        login_user(user)  # To automatically log the user in after registration
+        return redirect(url_for('home.home'))
+    else:
+        flash('Invalid credentials. Please try again.')
+    return render_template('register.html', form=form)

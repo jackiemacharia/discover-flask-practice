@@ -79,12 +79,33 @@ class UserViewsTests(BaseTestCase):
             )
             response = self.client.get('/logout', follow_redirects=True)
             self.assertIn(b'You were just logged out', response.data)
-            self.assertFalse(current_user.is_active())
+            self.assertFalse(current_user.is_active)
 
     # Ensure that logout page requires user to be logged in first
     def test_logout_requires_login(self):
         response = self.client.get('/logout', follow_redirects=True)
         self.assertIn(b'Please log in to access this page.', response.data)
+
+    # Ensure user can register
+    def test_user_registration(self):
+        with self.client:
+            response = self.client.post(
+                '/register', data=dict(username='jax', email='jax@example.com', password='password', confirm='password'),
+                follow_redirects=True
+            )
+            self.assertIn(b'Welcome to Flask!', response.data)
+            self.assertTrue(current_user.name == 'jax')
+            self.assertTrue(current_user.is_active())
+
+    # Ensure registration errors are caught
+    def test_registration_errors(self):
+        with self.client:
+            response = self.client.post(
+                '/register', data=dict(username='jax', email='jax@example.com', password='password', confirm='pssword'),
+                follow_redirects=True
+            )
+            self.assertIn(b'Invalid credentials. Please try again.', response.data)
+            self.assertFalse(current_user.is_active)
 
 
 if __name__ == '__main__':
