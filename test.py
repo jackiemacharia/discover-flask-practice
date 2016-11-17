@@ -14,7 +14,7 @@ class BaseTestCase(TestCase):
 
     def setUp(self):
         db.create_all()
-        db.session.add(BlogPost("Test post", "Hello from the other side"))
+        db.session.add(BlogPost("Test post", "Hello from the other side", "admin"))
         db.session.add(User("admin", "ad@min.com", "admin"))
         db.session.commit()
 
