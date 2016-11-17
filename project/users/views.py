@@ -2,12 +2,12 @@
 #### imports ####
 #################
 
-from flask import flash, redirect, render_template, request, url_for, Blueprint
+from flask import flash, redirect, render_template, request, url_for, Blueprint  # pragma: no cover
 # from functools import wraps  # wraps allows you to define and use decorators such as login_required
-from form import LoginForm, RegisterForm
-from project import db
-from project.models import User, bcrypt
-from flask_login import login_user, login_required, logout_user
+from form import LoginForm, RegisterForm  # pragma: no cover
+from project import db  # pragma: no cover
+from project.models import User, bcrypt  # pragma: no cover
+from flask_login import login_user, login_required, logout_user  # pragma: no cover
 
 ################
 #### config ####
@@ -16,7 +16,7 @@ from flask_login import login_user, login_required, logout_user
 users_blueprint = Blueprint(
     'users', __name__,
     template_folder='templates'
-)
+)  # pragma: no cover
 """
 ##########################
 #### helper functions ####

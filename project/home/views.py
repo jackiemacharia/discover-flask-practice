@@ -4,11 +4,11 @@
 #################
 
 # import wraps from functools
-from project import app, db
-from project.models import BlogPost
-from flask import render_template, redirect, url_for, request, session, flash, Blueprint
-from flask_login import login_required, current_user
-from .form import MessageForm
+from project import app, db  # pragma: no cover
+from project.models import BlogPost  # pragma: no cover
+from flask import render_template, redirect, url_for, request, session, flash, Blueprint  # pragma: no cover
+from flask_login import login_required, current_user  # pragma: no cover
+from .form import MessageForm  # pragma: no cover
 
 ################
 #### config ####
