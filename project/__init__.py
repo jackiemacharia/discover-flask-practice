@@ -7,6 +7,7 @@
 # import wraps from functools
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
+from flask_bcrypt import Bcrypt
 
 import os
 
@@ -17,6 +18,7 @@ import os
 
 # create the application object
 app = Flask(__name__)
+bcrypt = Bcrypt(app)
 app.config.from_object(os.environ['APP_SETTINGS'])  # to add development environment to local environment use this command:  export APP_SETTINGS="config.DevelopmentConfig"
 # create the sqlalchemy object
 db = SQLAlchemy(app)

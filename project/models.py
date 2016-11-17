@@ -1,7 +1,7 @@
 from project import db
 from sqlalchemy import ForeignKey
 from sqlalchemy.orm import relationship
-from project.users.views import generate_password_hash, check_password_hash
+from project import bcrypt
 
 
 class BlogPost(db.Model):
@@ -34,7 +34,7 @@ class User(db.Model):
     def __init__(self, name, email, password):
         self.name = name
         self.email = email
-        self.password = generate_password_hash(password)
+        self.password = bcrypt.generate_password_hash(password).decode('utf-8')
 
     def __repr__(self):
         return '<name {}'.format(self.name)

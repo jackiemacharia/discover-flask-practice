@@ -4,8 +4,9 @@
 
 from flask import flash, redirect, render_template, request, \
     session, url_for, Blueprint
-from werkzeug.security import generate_password_hash, check_password_hash
 from functools import wraps
+from form import LoginForm
+from project.models import User, db, bcrypt
 
 ################
 #### config ####
@@ -40,14 +41,18 @@ def login_required(f):
 @users_blueprint.route('/login', methods=['GET', 'POST'])
 def login():
     error = None
+    form = LoginForm()
     if request.method == 'POST':
-        if request.form['username'] != 'admin' or request.form['password'] != 'admin':
-            error = 'Invalid credentials. Please try again.'
-        else:
-            session['logged_in'] = True
-            flash('You were just logged in!')
-            return redirect(url_for('home.home'))
-    return render_template('login.html', error=error)
+        if form.validate_on_submit():
+            user = User.query.filter_by(name=request.form['username']).first()
+            password = form.password.data
+            if user is not None and bcrypt.check_password_hash(user.password, request.form['password'].encode('utf-8')):
+                session['logged_in'] = True
+                flash('You were just logged in!')
+                return redirect(url_for('home.home'))
+            else:
+                error = 'Invalid credentials. Please try again.'
+    return render_template('login.html', form=form, error=error)
 
 
 @users_blueprint.route('/logout')
