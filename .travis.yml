@@ -9,7 +9,9 @@ notifications:
 env:
   global:
     - TRAVIS_BUILD=true
-after_success:
-  coveralls
+
 script:
   coverage run --source=discover-flask-practice manage.py test
+
+after_success:
+  coveralls
