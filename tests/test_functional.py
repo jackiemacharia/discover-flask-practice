@@ -1,26 +1,6 @@
 import unittest
-from project import app, db
-from flask_testing import TestCase
-from project.models import User, BlogPost
 from flask_login import current_user
-
-
-class BaseTestCase(TestCase):
-    """A base test case."""
-
-    def create_app(self):
-        app.config.from_object('config.TestConfig')
-        return app
-
-    def setUp(self):
-        db.create_all()
-        db.session.add(BlogPost("Test post", "Hello from the other side", "admin"))
-        db.session.add(User("admin", "ad@min.com", "admin"))
-        db.session.commit()
-
-    def tearDown(self):
-        db.session.remove()
-        db.drop_all()
+from base import BaseTestCase
 
 
 class FlaskTestCase(BaseTestCase):
@@ -34,6 +14,11 @@ class FlaskTestCase(BaseTestCase):
     def test_main_route_requires_login(self):
         response = self.client.get('/', follow_redirects=True)
         self.assertIn(b'Please log in to access this page.', response.data)
+
+    # Ensure that welcome page loads
+    def test_welcome_route_works_as_expected(self):
+        response = self.client.get('/welcome', follow_redirects=True)
+        self.assertIn(b'Welcome to Flask!', response.data)
 
     # Ensure that posts show up on the main page
     def test_posts_show_up_on_main_page(self):
@@ -85,27 +70,6 @@ class UserViewsTests(BaseTestCase):
     def test_logout_requires_login(self):
         response = self.client.get('/logout', follow_redirects=True)
         self.assertIn(b'Please log in to access this page.', response.data)
-
-    # Ensure user can register
-    def test_user_registration(self):
-        with self.client:
-            response = self.client.post(
-                '/register', data=dict(username='jax', email='jax@example.com', password='password', confirm='password'),
-                follow_redirects=True
-            )
-            self.assertIn(b'Welcome to Flask!', response.data)
-            self.assertTrue(current_user.name == 'jax')
-            self.assertTrue(current_user.is_active())
-
-    # Ensure registration errors are caught
-    def test_registration_errors(self):
-        with self.client:
-            response = self.client.post(
-                '/register', data=dict(username='jax', email='jax@example.com', password='password', confirm='pssword'),
-                follow_redirects=True
-            )
-            self.assertIn(b'Invalid credentials. Please try again.', response.data)
-            self.assertFalse(current_user.is_active)
 
 
 if __name__ == '__main__':
