@@ -38,7 +38,6 @@ def login_required(f):
 
 # route for handling the login page logic
 @users_blueprint.route('/login', methods=['GET', 'POST'])
-@login_required
 def login():
     error = None
     if request.method == 'POST':
