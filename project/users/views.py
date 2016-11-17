@@ -41,12 +41,12 @@ def login_required(f):
 @users_blueprint.route('/login', methods=['GET', 'POST'])
 def login():
     error = None
-    form = LoginForm()
+    form = LoginForm(request.form)
     if request.method == 'POST':
         if form.validate_on_submit():
             user = User.query.filter_by(name=request.form['username']).first()
             password = form.password.data
-            if user is not None and bcrypt.check_password_hash(user.password, request.form['password'].encode('utf-8')):
+            if user is not None and bcrypt.check_password_hash(user.password, request.form['password']):  # .encode('utf-8')
                 session['logged_in'] = True
                 flash('You were just logged in!')
                 return redirect(url_for('home.home'))
