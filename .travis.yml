@@ -1,25 +1,15 @@
 language: python
 python:
-    - "2.7"
-services:
-  - postgresql
-addons:
-  postgresql: "9.4"
-postgres:
-  adapter: postgresql
-  database: discover_flask_dev_db
-  username: postgres
-before_script:
-  - "psql -c 'create database discover_flask_dev_db;' -U postgres"
-cache: pip
-install: pip install -r requirements.txt
+  - "2.7"
+# command to install dependencies
+install: "pip install -r requirements.txt"
+# command to run tests
+notifications:
+  email: false
 env:
   global:
     - TRAVIS_BUILD=true
-branches:
-  only:
-      - master
+after_success:
+  coveralls
 script:
-  - python test.py
-notifications:
-  email: false
+  coverage run --source=discover-flask-practice manage.py test
